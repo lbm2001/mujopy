@@ -1,0 +1,18 @@
+joint_features:
+  - name: range
+    process: flatten
+  - name: stiffness
+    process: identity
+body_features:
+  - name: pos
+    process: flatten
+inertial_features:
+  - name: mass
+    process: identity
+  - name: ipos
+    process: flatten
+geom_features:
+  - name: size
+    process : flatten
+  - name: pos
+    process: flatten

@@ -122,7 +122,7 @@ def test_register_joint_property(go1_mujopy_model):
 def test_register_geom_property(go1_mujopy_model):
 
     def _geom_is_not_mesh(geom: Geom) -> bool:
-        geom_type = mujoco.mjtGeom(int(geom.mujoco_view.type))
+        geom_type = mujoco.mjtGeom(int(np.asarray(geom.mujoco_view.type).item()))
         return geom_type != mujoco.mjtGeom.mjGEOM_MESH
 
     MuJoPyModel.register_geom_property("geom_is_not_mesh", _geom_is_not_mesh)

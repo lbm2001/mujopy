@@ -7,7 +7,7 @@ name = "mujopy"
 version = "0.0.1"
 description = "Pythonic wrappers for MuJoCo models and Graph representations."
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 authors = [{ name = "Lukas Müller", email = "lukasbmueller@gmail.com" }]
 license = "MIT"
 license-files = ["LICENSE"]  # optional but recommended

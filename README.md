@@ -37,7 +37,7 @@ from mujopy import MuJoPyModel, RobotGraph
 
 # Load a MuJoCo XML and register the default property packs
 model = MuJoPyModel(
-    xml_path=str(Path("path/to/model.xml")),
+    xml_path=Path("path/to/model.xml"),
     include_world_body=True,
     include_free_joints=False,
 )
@@ -58,7 +58,7 @@ print(graph.number_of_nodes(), graph.feature_matrix.shape)
 Each wrapper exposes the underlying MuJoCo struct through the `mujoco_view` attribute—use it when you need direct access to raw MuJoCo fields:
 
 ```python
-body_view = trunk.mujoco_view  # mujoco.MjDataView for the body
+body_view = trunk.mujoco_view  # mujoco.MjModel body view (_MjModelBodyViews)
 print(body_view.pos)
 ```
 
@@ -66,17 +66,19 @@ print(body_view.pos)
 Extend the core wrappers with your own read-only properties by registering callables on `MuJoPyModel`:
 
 ```python
+import numpy as np
 from mujopy import MuJoPyModel
+from mujopy.src.mujopy_model.body import Body
 
-def _body_is_not_root(body: Body) -> bool:
-        return int(np.asarray(body.mujoco_view.parentid).item()) != body.id
+def _is_not_root(body: Body) -> bool:
+    return int(np.asarray(body.mujoco_view.parentid).item()) != body.id
 
 model = MuJoPyModel(xml_path="path/to/model.xml")
-MuJoPyModel.register_body_property("_body_is_not_root", is_not_root)
+MuJoPyModel.register_body_property("is_not_root", _is_not_root)
 model.register_default_properties()
 
 print(model.body(0).is_not_root)
 ```
 
 ## Licensing
-This project is distributed under the MIT License—see the license text in `pyproject.toml` for details.
+This project is distributed under the MIT License—see the [LICENSE](LICENSE) file for details.

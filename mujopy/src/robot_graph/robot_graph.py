@@ -1,21 +1,15 @@
-import networkx as nx
 from pathlib import Path
+
+import networkx as nx
 import numpy as np
 import yaml
-from typing import Tuple
 
-from mujopy.src.mujopy_model.mujopy_model import MuJoPyModel
 from mujopy.src.mujopy_model.body import Body
-from mujopy.src.mujopy_model.joint import Joint
 from mujopy.src.mujopy_model.geom import Geom
+from mujopy.src.mujopy_model.joint import Joint
+from mujopy.src.mujopy_model.mujopy_model import MuJoPyModel
 
 from .feature_processor import FeatureProcessor
-
-
-class NoValidGraphException(Exception):
-    def __init__(self, message="Graph is not a valid tree structure"):
-        self.message = message
-        super().__init__(self.message)
 
 
 class RobotGraph(nx.DiGraph):
@@ -30,7 +24,7 @@ class RobotGraph(nx.DiGraph):
         # Build mujoco model from xml
         self.mujopy_model = MuJoPyModel(xml_path=xml_path)
         self.mujopy_model.register_default_properties()
-        with open(feature_config_path, "r") as file:
+        with open(feature_config_path) as file:
             self._feature_config = yaml.safe_load(file)
         self.feature_processor = FeatureProcessor()
 
@@ -79,9 +73,7 @@ class RobotGraph(nx.DiGraph):
                     self.add_edge(parent_node, joint_node)
                     self.add_edge(joint_node, child_node)
 
-        return self
-
-    def _build_features(self) -> Tuple[int, int]:
+    def _build_features(self) -> tuple[int, int]:
 
         for _, data in self.nodes(data=True):
             mujopy_model_object = data["mujopy_model_object"]
@@ -93,14 +85,14 @@ class RobotGraph(nx.DiGraph):
             elif isinstance(mujopy_model_object, Joint):
                 feature_vector = self._extract_joint_features(mujopy_model_object)
             else:
-                raise Exception("Unsupported object.")
+                raise TypeError("Unsupported object.")
 
             data["feature_vector"] = feature_vector
 
         # Check shapes
         return self._check_feature_shapes()
 
-    def _check_feature_shapes(self) -> Tuple[int, int]:
+    def _check_feature_shapes(self) -> tuple[int, int]:
         body_dim: int | None = None
         joint_dim: int | None = None
 

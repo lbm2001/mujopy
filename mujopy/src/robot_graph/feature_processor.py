@@ -15,7 +15,7 @@ class FeatureProcessor:
     def process(self, value, method: str):
         fn = self.dispatch.get(method)
         if fn is None:
-            raise Exception(f"Unknown processing method '{method}'.")
+            raise ValueError(f"Unknown processing method '{method}'.")
         return fn(x=value)
 
     def _identity(self, x):

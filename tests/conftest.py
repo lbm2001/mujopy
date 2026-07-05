@@ -1,7 +1,8 @@
 import pathlib
+
 import pytest
-from mujopy import MuJoPyModel
-from mujopy import RobotGraph
+
+from mujopy import MuJoPyModel, RobotGraph
 
 
 @pytest.fixture

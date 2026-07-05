@@ -1,16 +1,21 @@
 from __future__ import annotations
+
 from typing import TYPE_CHECKING
+
 import numpy as np
 
 from .utils import MuJoPyModelItem
 
 if TYPE_CHECKING:
+    from mujoco._structs import MjModelJoint
+
     from mujopy.src.mujopy_model import MuJoPyModel
     from mujopy.src.mujopy_model.body import Body
-    from mujoco._structs import MjModelJoint
 
 
 class Joint(MuJoPyModelItem):
+    """Pythonic wrapper around a MuJoCo joint."""
+
     def __init__(
         self, mujopy_model: MuJoPyModel, joint_id: int, mujoco_view: MjModelJoint
     ) -> None:

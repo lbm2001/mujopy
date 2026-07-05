@@ -1,8 +1,8 @@
-import numpy as np
 import mujoco
+import numpy as np
 
 from mujopy import MuJoPyModel
-from mujopy.src.mujopy_model import Body, Joint, Geom
+from mujopy.src.mujopy_model import Body, Geom, Joint
 
 
 def test_body(go1_mujopy_model):

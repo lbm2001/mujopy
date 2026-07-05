@@ -1,7 +1,6 @@
-from abc import ABC
+class MuJoPyModelItem:
+    """Base wrapper that forwards attribute access to the underlying MuJoCo view."""
 
-
-class MuJoPyModelItem(ABC):
     def __init__(self, mujoco_view):
         self.mujoco_view = mujoco_view
 

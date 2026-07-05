@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-from typing import Callable, Any
+from collections.abc import Callable
+from typing import Any
 
 import mujoco
 import numpy as np
 
 from mujopy.src.mujopy_model.body import Body
-from mujopy.src.mujopy_model.joint import Joint
 from mujopy.src.mujopy_model.geom import Geom
-
+from mujopy.src.mujopy_model.joint import Joint
 
 _PRIMITIVE_GEOM_TYPES = {
     mujoco.mjtGeom.mjGEOM_SPHERE,

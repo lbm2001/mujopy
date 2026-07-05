@@ -1,16 +1,19 @@
 from __future__ import annotations
-from typing import Callable, Any
+
+from collections.abc import Callable
+from pathlib import Path
+from typing import Any
 
 import mujoco
 import numpy as np
 
 from mujopy.src.mujopy_model.body import Body
-from mujopy.src.mujopy_model.joint import Joint
 from mujopy.src.mujopy_model.geom import Geom
+from mujopy.src.mujopy_model.joint import Joint
 from mujopy.src.mujopy_model.property_packs import (
     _DEFAULT_BODY_PROPERTIES,
-    _DEFAULT_JOINT_PROPERTIES,
     _DEFAULT_GEOM_PROPERTIES,
+    _DEFAULT_JOINT_PROPERTIES,
 )
 
 
@@ -19,14 +22,14 @@ class MuJoPyModel:
 
     def __init__(
         self,
-        xml_path: str,
+        xml_path: str | Path,
         *,
         include_world_body: bool = False,
         include_free_joints: bool = False,
     ) -> None:
 
         # Load MuJoCo model
-        self.xml_path = xml_path
+        self.xml_path = str(xml_path)
         self._mujoco_model = mujoco.MjModel.from_xml_path(self.xml_path)
 
         self._build_body_wrappers()

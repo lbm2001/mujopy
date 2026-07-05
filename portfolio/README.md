@@ -1,8 +1,7 @@
----
+<!---
 title: MuJoPy
 venue: Open Source
 period: Oct 2025
-blurb: A small Python package that gives pythonic, graph-structured access to MuJoCo models — the preprocessing layer from the robot-generation project, factored out into a standalone, pip-installable tool.
 aiAssisted: true
 tags:
   - MuJoCo
@@ -11,7 +10,7 @@ tags:
 links:
   - label: PyPI
     href: https://pypi.org/project/mujopy/
----
+--->
 
 MuJoPy spun out of the robot-generation project below. Working with MuJoCo models usually means writing custom parsing logic every time you need to reach the bodies, joints and geoms of a robot. MuJoPy wraps MuJoCo's low-level structs in dataclasses — Body, Joint, Geom, MuJoPyModel — that expose model fields as plain Python properties and derive a navigable graph of the robot, so downstream tasks like feature extraction no longer need bespoke parsing. Each wrapper still exposes the raw struct through a mujoco_view attribute for direct access when needed, and the property system is extensible: you can register your own read-only properties on the model.
 
